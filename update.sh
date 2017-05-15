@@ -1,0 +1,12 @@
+update_image() {
+cd $1; docker build -t $2 . 
+cd ..
+}
+update_image dockersecplayground_kali dockersecplayground/kali:latest
+update_image dockersecplayground_alpine dockersecplayground/alpine:latest
+update_image dockersecplayground_alpine_networking dockersecplayground/alpine_networking:latest
+update_image dockersecplayground_alpine_router dockersecplayground/alpine_router:latest
+update_image dockersecplayground_alpine_telnet dockersecplayground/alpine_telnet:latest
+update_image dockersecplayground_alpine_test dockersecplayground/alpine_test:latest
+update_image dockersecplayground_ssh_keys dockersecplayground/ssh_keys:latest
+update_image dockersecplayground_alpine_ssh_password dockersecplayground/alpine_ssh_password:latest

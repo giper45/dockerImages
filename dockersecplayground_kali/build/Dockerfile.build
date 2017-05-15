@@ -1,0 +1,9 @@
+FROM linuxkonsult/kali-metasploit
+RUN  apt-get update && apt-get install -y git libssl-dev libpam0g-dev zlib1g-dev dh-autoreconf && \
+  git clone https://github.com/shellinabox/shellinabox.git && cd shellinabox && \
+ autoreconf -i && \
+./configure --disable-runtime-loading && make && \ 
+mkdir /fakeroot && mv shellinaboxd /fakeroot 
+
+WORKDIR /fakeroot
+CMD tar -czf - .

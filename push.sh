@@ -1,0 +1,7 @@
+docker push dockersecplayground/alpine:latest
+docker push dockersecplayground/alpine_networking:latest
+docker push dockersecplayground/alpine_router:latest
+docker push dockersecplayground/alpine_telnet:latest
+docker push dockersecplayground/alpine_test:latest
+docker push dockersecplayground/ssh_keys:latest
+docker push dockersecplayground/alpine_ssh_password:latest
