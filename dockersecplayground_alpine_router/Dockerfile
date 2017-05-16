@@ -1,4 +1,4 @@
-FROM dsp/alpine_base:latest 
+FROM dockersecplayground/alpine:latest
 
 
 LABEL \

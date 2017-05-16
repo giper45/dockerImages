@@ -11,29 +11,51 @@
 
 usage() {
 echo $1
-echo "Usage addroute.sh [--router_ip=val] [ --subnet=val]"
+echo "Usage addroute.sh [--router_ip val] [ --subnet val]"
 exit 1
 }
 
-# Parse Parameters #
-for ARG in $*; do
-  case $ARG in
-    --router_ip=*)
-      ROUTER=${ARG#*=} 
-      ;;
-    --subnet=*)
-      SUBNET=${ARG#*=} 
-      ;;
+function assertNoSpaces {
+    if [[ "$1" != "${1/ /}" ]]
+    then
+	usage 'Parameter cannot have spaces';
+    fi
+}
+ROUTER_BOOL=false
+SUBNET_BOOL=false
+
+optspec=":-:"
+while getopts "$optspec" optchar; do
+  case "${optchar}" in
+  -)
+    case "${OPTARG}" in
+    router_ip)
+    ROUTER="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+    [[ ! -z "${ROUTER// }" ]] && ROUTER_BOOL=true || usage 'Empty Name'
+    ;;
+    subnet)
+    SUBNET="${!OPTIND}"; OPTIND=$(( $OPTIND + 1 ))
+    [[ ! -z "${SUBNET// }" ]] && SUBNET_BOOL=true || usage 'Empty Name'
+    ;;
     *)
-      echo "Unknown Argument $ARG" ;;
+    usage
+    ;;
+    esac;;
+  *)
+    usage
+    ;;
   esac
 done
 
-if [ $# -ne 2 ]; then
-   usage "args must be 2"
+#assertNoSpaces "$GATEWAY"
+
+if [ $SUBNET_BOOL != true ] ; then
+	usage 'no subnet';
+fi
+if [ $ROUTER_BOOL != true ] ; then
+	usage 'no gateway';
 fi
 
-# Do Some Stuff #
 
 #ex 192.168.1.1/24
 ip route add $SUBNET via $ROUTER

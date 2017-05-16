@@ -7,8 +7,10 @@ hex()
 {
   openssl rand -hex 8
 }
-echo 'Creating shellinabox user '
+echo 'Add sbin to path env'
+export PATH="$PATH:/sbin"
 
+echo 'Creating shellinabox user '
 
 echo "Preparing container .."
 
