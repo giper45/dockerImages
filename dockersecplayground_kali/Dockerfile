@@ -5,7 +5,8 @@ FROM linuxkonsult/kali-metasploit
 RUN apt-get update && apt-get install -y libssl-dev 
 RUN sudo apt-get install -y vim nano \ 
 net-tools iputils-ping telnet tcpdump nmap  ssh fping dsniff ftp \ 
-gcc make build-essential bsdmainutils hydra john sqlmap
+gcc wpscan make build-essential firewalk bsdmainutils hydra john sqlmap \
+tor proxychains php
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -35,7 +36,7 @@ ENV SIAB_VERSION=2.19 \
 
 LABEL ports="4200" \
       type="entry_point" \
-      caps_add="NET_ADMIN" \
+      caps_add="ALL" \
       actions.addroute.command="/addroute.sh" \ 
       actions.addroute.description="Add a new route for the subnet : set router ip and subnet " \ 
       actions.addroute.args.subnet.val="192.168.1.0/24" \
